@@ -1,0 +1,109 @@
+---
+# noqa: var-naming[no-role-prefix]
+
+foreman_products_defaults: &foreman_products_defaults
+  content_type: yum
+  gpg_key: "{{ foreman_cred_name_prefix | default('') }}RPM-GPG-KEY-nginx"
+  download_policy: "{{ foreman_products_defaults_download_policy_nginx }}"
+  # mirror_on_sync: True
+  # mirroring_policy: "additive"
+  # mirroring_policy: "mirror_content_only"
+  # mirroring_policy: "mirror_complete"
+  mirroring_policy: "{{ foreman_products_defaults_mirroring_policy_nginx }}"
+  verify_ssl_on_sync: "{{ foreman_products_defaults_verify_ssl_on_sync_nginx | bool }}"
+  # http_proxy: Default Proxy
+  http_proxy_policy: "{{ foreman_products_defaults_http_proxy_policy_nginx }}"
+  unprotected: "{{ foreman_products_defaults_unprotected_nginx | bool }}"
+
+
+foreman_products_nginx_el7:
+  - name: "{{ foreman_product_name_prefix | default('') }}Nginx"
+    label: "{{ foreman_product_label_prefix | default('') }}Nginx"
+    organization: "{{ foreman_organization_nginx_el7 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}nginx stable repo - EL7"
+        label: "{{ foreman_repo_label_prefix | default('') }}nginx-stable-el7"
+        url: "{{ foreman_repo_baseurl_nginx }}/rhel/7/x86_64/"
+        <<: *foreman_products_defaults
+        organization: "{{ foreman_organization_nginx_el7 }}"
+      - name: "{{ foreman_repo_name_prefix | default('') }}nginx mainline repo - EL7"
+        label: "{{ foreman_repo_label_prefix | default('') }}nginx-mainline-el7"
+        url: "{{ foreman_repo_baseurl_nginx }}/mainline/rhel/7/x86_64/"
+        <<: *foreman_products_defaults
+        organization: "{{ foreman_organization_nginx_el7 }}"
+
+foreman_products_nginx_el8:
+  - name: "{{ foreman_product_name_prefix | default('') }}Nginx"
+    label: "{{ foreman_product_label_prefix | default('') }}Nginx"
+    organization: "{{ foreman_organization_nginx_el8 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}nginx stable repo - EL8"
+        label: "{{ foreman_repo_label_prefix | default('') }}nginx-stable-el8"
+        url: "{{ foreman_repo_baseurl_nginx }}/rhel/8/x86_64/"
+        <<: *foreman_products_defaults
+        organization: "{{ foreman_organization_nginx_el8 }}"
+      - name: "{{ foreman_repo_name_prefix | default('') }}nginx mainline repo - EL8"
+        label: "{{ foreman_repo_label_prefix | default('') }}nginx-mainline-el8"
+        url: "{{ foreman_repo_baseurl_nginx }}/mainline/rhel/8/x86_64/"
+        <<: *foreman_products_defaults
+        organization: "{{ foreman_organization_nginx_el8 }}"
+
+foreman_products_nginx_el9:
+  - name: "{{ foreman_product_name_prefix | default('') }}Nginx"
+    label: "{{ foreman_product_label_prefix | default('') }}Nginx"
+    organization: "{{ foreman_organization_nginx_el9 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}nginx stable repo - EL9"
+        label: "{{ foreman_repo_label_prefix | default('') }}nginx-stable-el9"
+        url: "{{ foreman_repo_baseurl_nginx }}/rhel/9/x86_64/"
+        <<: *foreman_products_defaults
+        organization: "{{ foreman_organization_nginx_el9 }}"
+      - name: "{{ foreman_repo_name_prefix | default('') }}nginx mainline repo - EL9"
+        label: "{{ foreman_repo_label_prefix | default('') }}nginx-mainline-el9"
+        url: "{{ foreman_repo_baseurl_nginx }}/mainline/rhel/9/x86_64/"
+        <<: *foreman_products_defaults
+        organization: "{{ foreman_organization_nginx_el9 }}"
+
+
+foreman_content_views_nginx_el7:
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}nginx_stable_el7"
+    organization: "{{ foreman_organization_nginx_el7 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}nginx stable repo - EL7"
+        product: "{{ foreman_product_name_prefix | default('') }}Nginx"
+    allow_promote: "{{ foreman_cv_allow_promote_nginx_el7 }}"
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}nginx_mainline_el7"
+    organization: "{{ foreman_organization_nginx_el7 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}nginx mainline repo - EL7"
+        product: "{{ foreman_product_name_prefix | default('') }}Nginx"
+    allow_promote: "{{ foreman_cv_allow_promote_nginx_el7 }}"
+
+foreman_content_views_nginx_el8:
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}nginx_stable_el8"
+    organization: "{{ foreman_organization_nginx_el8 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}nginx stable repo - EL8"
+        product: "{{ foreman_product_name_prefix | default('') }}Nginx"
+    allow_promote: "{{ foreman_cv_allow_promote_nginx_el8 }}"
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}nginx_mainline_el8"
+    organization: "{{ foreman_organization_nginx_el8 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}nginx mainline repo - EL8"
+        product: "{{ foreman_product_name_prefix | default('') }}Nginx"
+    allow_promote: "{{ foreman_cv_allow_promote_nginx_el8 }}"
+
+foreman_content_views_nginx_el9:
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}nginx_stable_el9"
+    organization: "{{ foreman_organization_nginx_el9 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}nginx stable repo - EL9"
+        product: "{{ foreman_product_name_prefix | default('') }}Nginx"
+    allow_promote: "{{ foreman_cv_allow_promote_nginx_el9 }}"
+  - name: "{{ foreman_cv_prefix | default('cv_') }}{{ foreman_cv_name_prefix | default('') }}nginx_mainline_el9"
+    organization: "{{ foreman_organization_nginx_el9 }}"
+    repositories:
+      - name: "{{ foreman_repo_name_prefix | default('') }}nginx mainline repo - EL9"
+        product: "{{ foreman_product_name_prefix | default('') }}Nginx"
+    allow_promote: "{{ foreman_cv_allow_promote_nginx_el9 }}"
+
